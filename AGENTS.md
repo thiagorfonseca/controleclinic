@@ -1,37 +1,19 @@
-> **First-time setup**: Customize this file for your project. Prompt the user to customize this file for their project.
-> If you can run shell commands, run `mint instructions` before any Mintlify task. It prints current guidance for this CLI version. Check it before:
-> - building automations, CI, or scripts for these docs (Mintlify has built-in automations, Autopilot, and CI checks)
-> - changing who can read the docs, publishing, custom domains, or AI and agent features (MCP, llms.txt, skill.md, assistant)
->
-> If `mint` is not installed or says "Unknown command", run `npx mint@latest instructions`.
-> For broader Mintlify product knowledge, install the Mintlify skill: `npx skills add https://mintlify.com/docs`
+# Documentação da API do Controle Clinic
 
-# Documentation project instructions
+Site Mintlify (`docs.json` + páginas MDX). Rode `mint instructions` antes de qualquer tarefa no Mintlify.
 
-## About this project
+## Fonte da verdade
 
-- This is a documentation site built on [Mintlify](https://mintlify.com)
-- Pages are MDX files with YAML frontmatter
-- Configuration lives in `docs.json`
-- Use the Mintlify MCP server, `https://mcp.mintlify.com`, to edit content and settings via MCP
-- Use the Mintlify docs MCP server, `https://www.mintlify.com/docs/mcp`, to query information about using Mintlify via MCP
+- A aba **Referência da API** é gerada de `https://api.controleclinic.com.br/v1/openapi.json`, servido pelo
+  sistema (repositório `cliniccontrole`, arquivo `api/v1.ts`). **Não copie rotas, campos ou escopos para cá à
+  mão**: corrija no `api/v1.ts` e, depois do deploy do sistema, clique em **Manual update** no painel do
+  Mintlify (mudar a URL não dispara deploy sozinho).
+- Os guias (`index.mdx`, `guias/`) repetem o texto de `info.description` e das `tags` do OpenAPI. Mudou lá,
+  mude aqui no mesmo dia.
 
-## Terminology
+## Regras de conteúdo
 
-{/* Add product-specific terms and preferred usage */}
-{/* Example: Use "workspace" not "project", "member" not "user" */}
-
-## Style preferences
-
-{/* Add any project-specific style rules below */}
-
-- Use active voice and second person ("you")
-- Keep sentences concise — one idea per sentence
-- Use sentence case for headings
-- Bold for UI elements: Click **Settings**
-- Code formatting for file names, commands, paths, and code references
-
-## Content boundaries
-
-{/* Define what should and shouldn't be documented */}
-{/* Example: Don't document internal admin features */}
+- Tudo em português do Brasil, segunda pessoa, frases curtas.
+- Nunca documentar rota interna (`/api/internal/*`) nem recursos de admin.
+- O nome do produto em tela é sempre **Controle Clinic**. "OnePay" é codinome interno e não aparece aqui.
+- Repositório PÚBLICO: nada de chave, ID de clínica real ou dado de paciente nos exemplos.

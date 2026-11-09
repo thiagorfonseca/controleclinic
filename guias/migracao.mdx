@@ -1,0 +1,16 @@
+---
+title: "Trazer o histórico"
+description: "Quando usar a API e quando usar a Central de Migração."
+---
+
+A API serve para um sistema externo criar e atualizar pacientes e agendamentos **daqui para a frente**.
+
+Para trazer o **histórico** de outro sistema (pacientes, prontuário, agenda passada, financeiro), use a **Central de Migração**, com o time de implantação. Ela tem prévia, de-para e desfazer, que a API não tem.
+
+| Preciso de… | Caminho |
+| --- | --- |
+| Sincronizar agendamentos novos com meu CRM ou chatbot | API |
+| Cadastrar pacientes que chegam por um formulário | API |
+| Ler o financeiro num painel externo | API |
+| Trazer anos de pacientes e prontuários de outro sistema | Central de Migração |
+| Importar receitas e despesas antigas | Central de Migração ou importador de receitas |

@@ -1,0 +1,28 @@
+---
+title: "Limites e erros"
+description: "Limite de chamadas por minuto e os erros comuns a todas as rotas."
+---
+
+## Limite de chamadas
+
+Cada chave pode fazer **60 chamadas por minuto** (plano pro). Toda resposta traz o saldo nos cabeçalhos:
+
+| Cabeçalho | Significado |
+| --- | --- |
+| `X-RateLimit-Limit` | Limite por minuto |
+| `X-RateLimit-Remaining` | Chamadas que ainda restam na janela |
+| `X-RateLimit-Reset` | Quando a janela recomeça |
+
+Acima do limite, a resposta é `429`. Espere o `X-RateLimit-Reset` antes de tentar de novo.
+
+## Erros comuns a todas as rotas
+
+| Código | Quando acontece |
+| --- | --- |
+| `400` | Corpo ou parâmetro inválido. O corpo da resposta diz qual campo. |
+| `401` | Chave ausente, inválida, revogada ou vencida. |
+| `403` | Escopo insuficiente ou clínica com acesso suspenso. |
+| `429` | Limite de chamadas atingido. |
+| `500` | Erro interno. Tente de novo mais tarde; se repetir, abra chamado informando o horário. |
+
+Algumas rotas têm códigos próprios, como o `409` de paciente já cadastrado. Eles aparecem na página de cada rota, na aba **Referência da API**.

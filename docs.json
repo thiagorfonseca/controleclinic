@@ -1,72 +1,72 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "Controle Clinic API",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#109384",
+    "light": "#18B09B",
+    "dark": "#0D7A6E"
   },
-  "favicon": "/favicon.svg",
+  "fonts": {
+    "family": "Manrope"
+  },
+  "favicon": "/favicon.png",
+  "logo": {
+    "light": "/logo/controle-clinic.png",
+    "dark": "/logo/controle-clinic.png",
+    "href": "https://controleclinic.com.br"
+  },
   "navigation": {
-    "pages": [
+    "languages": [
       {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
+        "language": "pt-BR",
+        "default": true,
+        "tabs": [
+          {
+            "tab": "Guia",
+            "groups": [
+              {
+                "group": "Comece aqui",
+                "pages": ["index", "guias/autenticacao", "guias/limites-e-erros"]
+              },
+              {
+                "group": "Passo a passo",
+                "pages": ["guias/agendar-paciente", "guias/financeiro", "guias/migracao"]
+              }
+            ]
+          },
+          {
+            "tab": "Referência da API",
+            "openapi": "https://api.controleclinic.com.br/v1/openapi.json"
+          }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+  "api": {
+    "playground": {
+      "display": "interactive",
+      "proxy": false
+    },
+    "examples": {
+      "languages": ["curl", "javascript", "python"],
+      "defaults": "required"
+    }
   },
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:support@mintlify.com"
+        "label": "Testar com segurança",
+        "href": "https://controleclinic.com.br/desenvolvedores"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
+      "label": "Entrar no Controle Clinic",
+      "href": "https://controleclinic.com.br"
     }
   },
   "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
+    "options": ["copy", "view", "chatgpt", "claude"]
   }
 }

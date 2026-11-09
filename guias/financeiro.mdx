@@ -1,0 +1,30 @@
+---
+title: "Ler o financeiro"
+description: "Vendas, recebíveis, caixa, despesas e saldos da clínica, só para leitura."
+---
+
+As rotas de financeiro exigem o escopo `financial:read`. **Nenhuma delas grava nada.**
+
+| Rota | O que traz |
+| --- | --- |
+| `GET /v1/financial/sales` | Vendas |
+| `GET /v1/financial/receivables` | Recebíveis (títulos a receber) |
+| `GET /v1/financial/cash-entries` | Entradas de caixa |
+| `GET /v1/financial/expenses` | Despesas |
+| `GET /v1/financial/bank-balances` | Saldos das contas |
+
+## Cada resposta diz o seu regime
+
+Toda resposta traz o campo `regime`, com um destes valores: `competencia`, `caixa`, `vencimento` ou `saldo`.
+
+<Warning>
+  Não some números de regimes diferentes. Entradas de caixa não são faturamento: o total sairia sem sentido.
+</Warning>
+
+## Dados pessoais
+
+Nome, CPF, `patient_id` e descrições só aparecem com o escopo `sensitive:read`. Sem ele, o campo **não vem na resposta**, nem como `null`. O nome do fornecedor das despesas sai com `sensitive:read` ou `financial:suppliers`.
+
+## Trazer dados de outro sistema
+
+A API não importa receitas nem despesas. Para isso, veja [Trazer o histórico](/guias/migracao).

@@ -1,0 +1,44 @@
+---
+title: "Autenticação"
+description: "Como criar a chave de API e enviá-la em cada chamada."
+---
+
+Toda chamada, exceto `GET /v1/health`, precisa da chave no cabeçalho `X-API-Key`.
+
+```bash
+curl "https://api.controleclinic.com.br/v1/me" \
+  -H "X-API-Key: $CHAVE"
+```
+
+## Criar a chave
+
+1. No Controle Clinic, abra **Configurações → Clínica → Integrações → Tokens de API**.
+2. Dê um nome que diga onde a chave será usada (ex.: "Integração n8n").
+3. Marque **só os escopos de que a integração precisa**.
+4. Defina uma validade.
+
+A chave tem o formato `cc_live_` seguido de 64 caracteres. Ela pertence a **uma** clínica: tudo o que a chave lê ou grava é dessa clínica.
+
+<Warning>
+  A chave dá acesso aos dados da clínica. Guarde-a no cofre de segredos da sua ferramenta (n8n, servidor, CRM), nunca em código no navegador nem em planilha compartilhada.
+</Warning>
+
+## Escopos
+
+| Escopo | O que libera |
+| --- | --- |
+| `scheduling:read` | Leitura de agendamentos, pacientes e cadastros da clínica |
+| `scheduling:write` | Criar e alterar agendamentos e pacientes |
+| `financial:read` | Leitura das rotas de financeiro |
+| `sensitive:read` | CPF, telefone, e-mail, nascimento e nome sem máscara |
+| `financial:suppliers` | Nome do fornecedor nas despesas |
+
+Sem `sensitive:read`, os dados pessoais dos pacientes saem mascarados, e no financeiro esses campos nem aparecem na resposta. Confira os escopos de cada rota na aba **Referência da API**.
+
+## Conferir a chave
+
+`GET /v1/me` devolve o prefixo, o nome, os escopos, a validade e a clínica da chave em uso. É a primeira chamada a fazer numa integração nova.
+
+## Auditoria
+
+Toda chamada fica registrada em **Logs de Auditoria**, na mesma tela dos tokens.
