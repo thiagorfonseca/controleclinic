@@ -68,5 +68,6 @@
   },
   "contextual": {
     "options": ["copy", "view", "chatgpt", "claude"]
-  }
+  },
+  "description": "Documentação da API do Controle Clinic: conecte n8n, CRMs, ERPs e chatbots à sua clínica para agendar pacientes, cadastrar pacientes e ler o financeiro."
 }
