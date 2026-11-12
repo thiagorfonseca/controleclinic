@@ -25,6 +25,20 @@ Toda resposta traz o campo `regime`, com um destes valores: `competencia`, `caix
 
 Nome, CPF, `patient_id` e descrições só aparecem com o escopo `sensitive:read`. Sem ele, o campo **não vem na resposta**, nem como `null`. O nome do fornecedor das despesas sai com `sensitive:read` ou `financial:suppliers`.
 
+## Fechamento financeiro
+
+O financeiro da API é a **visão gerencial da clínica**: os mesmos números das telas Fluxo de Caixa e Fechamento de Caixa. Para fechar um mês sem erro:
+
+1. **Nada aqui é confirmação bancária.** `REALIZADO` em `/cash-entries` quer dizer que a clínica deu baixa na venda (no cartão: venda aprovada), não que o dinheiro caiu. Concilie sempre com o extrato do banco e o da maquininha. `data_estimada = true` marca a entrada cuja data foi calculada pelo sistema (regra do cartão ou cronograma), e não registrada na baixa.
+2. **O valor líquido usa a taxa cadastrada na clínica**, não a cobrada de fato pela maquininha. Antecipação, estorno e diferença de taxa só aparecem no extrato.
+3. **Ligue tudo por `revenue_id`.** `lancamento_id` + `parcela` identifica a entrada dentro de uma leitura, mas **pode mudar** se a venda for editada ou mudar de situação. A cada leitura, substitua todas as entradas de cada venda; nunca atualize linha a linha pela chave.
+4. **Título não é entrada de caixa.** O dinheiro de uma venda aparece em `/cash-entries`; os títulos (`/receivables`) costumam só dar as datas às parcelas e, nesse caso, a entrada vem sem `titulo_id`. Não some títulos com entradas, nem título pai com título filho.
+5. **O mês fechado pode mudar.** A clínica pode lançar ou dar baixa com data passada, e a API não tem "alterado em". Puxe o período inteiro de novo logo antes de assinar o fechamento e compare com a leitura anterior.
+
+<Warning>
+  No cartão parcelado, `status = REALIZADO` vem com `data_realizado` vazia: a `data_prevista` é uma projeção (competência + 30 dias por parcela, em dia útil), não a data em que o dinheiro entrou.
+</Warning>
+
 ## Trazer dados de outro sistema
 
 A API não importa receitas nem despesas. Para isso, veja [Trazer o histórico](/guias/migracao).
